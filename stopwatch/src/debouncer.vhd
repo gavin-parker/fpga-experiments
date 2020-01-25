@@ -11,7 +11,7 @@ entity debouncer is
 
       Port (    i_clk : in std_logic;
                 b_in : in std_logic;
-                b_out : out std_logic );
+                b_out : out std_logic);
 end debouncer;
 
 architecture Behavioral of debouncer is

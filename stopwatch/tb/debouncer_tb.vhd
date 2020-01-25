@@ -40,7 +40,6 @@ begin
             b_in <= '0';
             wait for ClockPeriod;
             assert b_out = '0' report "Button not reset" severity error;
-            
-            std.env.finish;
+
         end process;
 end TestBench;

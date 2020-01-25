@@ -9,6 +9,6 @@ Practice projects for the Basys3 Artix-7 board
 
 ### TODO
  - [X] Debounce buttons
- - [ ] Add counter for buttons
+ - [X] Add counter for buttons
  - [ ] Display integers on 7-Segment display
  - [ ] Add LED flashing sequence
