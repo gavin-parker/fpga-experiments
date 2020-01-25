@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.all;
+use work.utils.all;
 
 entity debouncer is
       Generic (
@@ -16,8 +17,7 @@ end debouncer;
 architecture Behavioral of debouncer is
     type ButtonState is (Pressed, Unpressed);
     constant MaxCount : Integer := (WaitPeriod / 1000ms) * ClockSpeedHz;
-
-    signal count : unsigned(15 downto 0) := X"0000";
+    signal count : unsigned(clog2(MaxCount) downto 0) := (others => '0');
     signal state : ButtonState := Unpressed;
 begin
 process (i_clk, b_in) is
