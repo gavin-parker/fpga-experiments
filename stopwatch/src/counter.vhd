@@ -10,50 +10,50 @@ entity counter is
 
   port (i_clk : in std_logic;
         i_incr : in std_logic;
-        i_decr : in std_logic;
-        o_val : out unsigned(clog2(MaxValue) downto 0));
+        o_val : out unsigned(clog2(MaxValue)-1 downto 0));
 end counter;
 
 -- TODO: Handle both buttons at once, split out edge detector
 
 architecture Behavioral of counter is
-    type CounterState is (Increment, Decrement, Waiting);
+    type CounterState is (Increment, Waiting);
     signal state : CounterState := Waiting;
-    signal count : unsigned(clog2(MaxValue) downto 0) := (others => '0');
+    signal state_next : CounterState := Waiting;
+    signal count : unsigned(clog2(MaxValue)-1 downto 0) := (others => '0');
 begin
-process (i_clk, i_incr, i_decr) is
-  begin
+
+o_val <= count;
+
+process (i_clk)
+begin
     if rising_edge(i_clk) then
-      case state is
-
-        -- increment/decrement counter on edge
-        when Waiting =>
-          if i_incr = '1' then
-            count <= count+1;
-            state <= Increment;
-          elsif i_decr = '1' then
-            count <= count-1;
-            state <= Decrement;
-          end if;
-
-        when Increment => 
-          if i_incr = '0' then
-            state <= Waiting;
-          end if;
-
-        when Decrement =>
-          if i_decr = '0' then
-            state <= Waiting;
-          end if;
-      end case;
+        state <= state_next;
     end if;
-    
-    -- Wrap to zero
-    if count > MaxValue or count < 0 then
-      count <= (others => '0');
-    end if;
-
-  o_val <= count;
 end process;
 
+process (state, i_incr) is
+begin
+    state_next <= state;
+    case state is
+      -- increment/decrement counter on edge
+      when Waiting =>
+        if i_incr = '1' then
+          state_next <= Increment;
+          if count < MaxValue then
+            count <= count+1;
+          else
+            count <= (others => '0');
+          end if;
+        end if;
+
+      when Increment => 
+        if i_incr = '0' then
+          state_next <= Waiting;
+        else
+          state_next <= Increment;
+        end if;
+    end case;
+    
+
+end process;
 end Behavioral;
