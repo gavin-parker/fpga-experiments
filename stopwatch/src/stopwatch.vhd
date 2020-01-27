@@ -23,7 +23,7 @@ begin
     ButtonUp : entity work.debouncer port map(i_clk => clk, b_in => btnU, b_out => increment);
     Counter : entity work.counter port map(i_clk => clk, i_incr => increment, o_val => num);
     Display : entity work.display
-        port map (i_clk => clk, i_num => num, o_cathode => seg);
+        port map (i_num => num, o_cathode => seg);
         
     led(0) <= increment;
     an <= "0000";

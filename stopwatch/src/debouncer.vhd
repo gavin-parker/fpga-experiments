@@ -23,6 +23,7 @@ begin
 process (i_clk) is
 begin
     b_out <= '0';
+    count <= count;
     if rising_edge(i_clk) then
         if b_in = '1' and count < MaxCount then
             count <= count+1;

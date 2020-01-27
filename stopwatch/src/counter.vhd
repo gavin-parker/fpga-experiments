@@ -20,6 +20,7 @@ architecture Behavioral of counter is
     signal state : CounterState := Waiting;
     signal state_next : CounterState := Waiting;
     signal count : unsigned(clog2(MaxValue)-1 downto 0) := (others => '0');
+    signal count_next : unsigned(clog2(MaxValue)-1 downto 0) := (others => '0');
 begin
 
 o_val <= count;
@@ -28,21 +29,23 @@ process (i_clk)
 begin
     if rising_edge(i_clk) then
         state <= state_next;
+        count <= count_next;
     end if;
 end process;
 
-process (state, i_incr) is
+process (all) is
 begin
     state_next <= state;
+    count_next <= count;
     case state is
       -- increment/decrement counter on edge
       when Waiting =>
         if i_incr = '1' then
           state_next <= Increment;
           if count < MaxValue then
-            count <= count+1;
+            count_next <= count+1;
           else
-            count <= (others => '0');
+          count_next <= (others => '0');
           end if;
         end if;
 

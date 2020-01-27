@@ -5,19 +5,17 @@ use work.utils.all;
 
 entity display is
 
-  port (i_clk : in std_logic;
-        i_num : in unsigned(3 downto 0);
+  port (i_num : in unsigned(3 downto 0);
         o_cathode : out std_logic_vector(6 downto 0));
 end display;
 
 architecture Behavioral of display is
     signal num : Integer := 0;
 begin
-process (i_clk, i_num) is
+process (i_num) is
   begin
     num <= to_integer(i_num);
-    if rising_edge(i_clk) then
-     case num is
+    case num is
         when 0 => o_cathode <= "1000000"; --reverse these
         when 1 => o_cathode <= "1111001";
         when 2 => o_cathode <= "0100100";
@@ -30,8 +28,5 @@ process (i_clk, i_num) is
         when 9 => o_cathode <= "0010000";
         when others => null;
     end case;
-    end if;
-    
 end process;
-
 end Behavioral;
