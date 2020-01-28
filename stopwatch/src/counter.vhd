@@ -5,7 +5,7 @@ use work.utils.all;
 
 entity counter is
   Generic (
-    MaxValue: Integer := 9
+    MaxValue: Integer := 9999
   );
 
   port (i_clk : in std_logic;

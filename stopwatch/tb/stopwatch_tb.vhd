@@ -10,7 +10,7 @@ architecture TestBench of stopwatch_tb is
     constant DebouncePeriod     : time := 100ms;
     constant DebouncePeriodS    : Real := 0.1;
 
-    constant MaxCount       : Integer := 9;
+    constant MaxCount       : Integer := 9999;
     constant ClockSpeedHz : Integer := 100e6;
     constant ClockPeriod : time := 1sec / ClockSpeedHz;
 
