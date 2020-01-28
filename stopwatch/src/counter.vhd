@@ -9,6 +9,7 @@ entity counter is
   );
 
   port (i_clk : in std_logic;
+        i_rst : in std_logic;
         i_incr : in std_logic;
         i_decr : in std_logic;
         o_val : out unsigned(clog2(MaxValue)-1 downto 0));
@@ -26,7 +27,7 @@ begin
 
 o_val <= count;
 
-process (i_clk)
+process (i_clk, i_rst)
 begin
     if rising_edge(i_clk) then
         state <= state_next;
@@ -34,7 +35,7 @@ begin
     end if;
 end process;
 
-process (i_incr, count, state) is
+process (i_incr, i_decr, count, state) is
 begin
     state_next <= state;
     count_next <= count;
