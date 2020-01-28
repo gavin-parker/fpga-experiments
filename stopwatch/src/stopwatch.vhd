@@ -18,10 +18,12 @@ architecture Behavioral of stopwatch is
     constant MaxCount       : Integer := 9999;
     signal num : unsigned(clog2(MaxCount)-1 downto 0);
     signal increment : std_logic;
+    signal decrement : std_logic;
 
 begin
     ButtonUp : entity work.debouncer port map(i_clk => clk, b_in => btnU, b_out => increment);
-    Counter : entity work.counter port map(i_clk => clk, i_incr => increment, o_val => num);
+    ButtonDown : entity work.debouncer port map(i_clk => clk, b_in => btnD, b_out => decrement);
+    Counter : entity work.counter port map(i_clk => clk, i_incr => increment, i_decr => decrement, o_val => num);
     Display : entity work.display
         port map (i_clk => clk, i_num => num, o_cathode => seg, o_anode => an);
         

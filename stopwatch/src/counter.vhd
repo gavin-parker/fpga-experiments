@@ -10,13 +10,14 @@ entity counter is
 
   port (i_clk : in std_logic;
         i_incr : in std_logic;
+        i_decr : in std_logic;
         o_val : out unsigned(clog2(MaxValue)-1 downto 0));
 end counter;
 
 -- TODO: Handle both buttons at once, split out edge detector
 
 architecture Behavioral of counter is
-    type CounterState is (Increment, Waiting);
+    type CounterState is (Increment, Decrement, Waiting);
     signal state : CounterState := Waiting;
     signal state_next : CounterState := Waiting;
     signal count : unsigned(clog2(MaxValue)-1 downto 0) := (others => '0');
@@ -40,12 +41,21 @@ begin
     case state is
       -- increment/decrement counter on edge
       when Waiting =>
+
         if i_incr = '1' then
           state_next <= Increment;
           if count < MaxValue then
             count_next <= count+1;
           else
-          count_next <= (others => '0');
+            count_next <= (others => '0');
+          end if;
+          
+        elsif i_decr = '1' then
+          state_next <= Decrement;
+          if count > 0 then
+            count_next <= count-1;
+          else
+            count_next <= to_unsigned(MaxValue, clog2(MaxValue));
           end if;
         end if;
 
@@ -54,6 +64,13 @@ begin
           state_next <= Waiting;
         else
           state_next <= Increment;
+        end if;
+
+      when Decrement => 
+        if i_decr = '0' then
+          state_next <= Waiting;
+        else
+          state_next <= Decrement;
         end if;
     end case;
     
