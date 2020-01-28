@@ -32,6 +32,10 @@ begin
     if rising_edge(i_clk) then
         state <= state_next;
         count <= count_next;
+        if i_rst = '1' then
+          state <= Waiting;
+          count <= (others => '0');
+        end if;
     end if;
 end process;
 

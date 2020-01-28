@@ -68,6 +68,7 @@ begin
             secondCounter <= secondCounter;
             led(1) <= '0';
             countdown <= countdown;
+            rst <= '0';
             case state is
                 when Setting =>
                     if center_pressed = '1' then
@@ -86,9 +87,11 @@ begin
                 when Alarming =>
                     led(1) <= '1';
                     secondCounter <= secondCounter+1;
+                    countdown <= (others => '0');
                     if secondCounter = ClockSpeedHz then
                         state_next <= Setting;
                         secondCounter <= (others => '0');
+                        rst <= '1';
                     end if;
             end case;
         end if;
