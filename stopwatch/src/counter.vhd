@@ -33,7 +33,7 @@ begin
     end if;
 end process;
 
-process (all) is
+process (i_incr, count, state) is
 begin
     state_next <= state;
     count_next <= count;
