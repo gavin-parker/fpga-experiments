@@ -5,14 +5,15 @@ use IEEE.MATH_REAL.all;
 use work.utils.all;
 
 entity debouncer is
-      Generic (
-        WaitPeriodS: Real := 0.1;
-        ClockSpeedHz: Integer := 100e6
-      );
+	Generic (
+		WaitPeriodS: Real := 0.1;
+		ClockSpeedHz: Integer := 100e6);
 
-      Port (    i_clk : in std_logic;
-                b_in  : in std_logic;
-                b_out : out std_logic);
+	Port (
+		i_clk : in std_logic;
+		b_in  : in std_logic;
+		b_out : out std_logic);
+
 end debouncer;
 
 architecture Behavioral of debouncer is
@@ -20,8 +21,7 @@ architecture Behavioral of debouncer is
     signal count : unsigned(clog2(MaxCount) downto 0) := (others => '0');
 begin
 
-process (i_clk) is
-begin
+process (i_clk) is begin
     if rising_edge(i_clk) then
         b_out <= '0';
         count <= count;
