@@ -13,4 +13,4 @@ Practice projects for the Basys3 Artix-7 board
  - [X] Display integers on 7-Segment display
  - [X] Add LED flashing sequence
  - [X] Add reset signal
- - [] Tidy
+ - [ ] Tidy
