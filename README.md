@@ -14,3 +14,14 @@ Practice projects for the Basys3 Artix-7 board
  - [X] Add LED flashing sequence
  - [X] Add reset signal
  - [ ] Tidy
+
+## UART Peak Detector
+1. Send data over UART from host -> FPGA
+2. Calculate the peak value of the data
+3. Send the peak value back to the host
+
+### TODO
+- [X] Add UART Receiver
+- [] Add UART Transmitter
+- [] Add peak detection logic
+- [] Add state machine for managing sequence
