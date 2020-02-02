@@ -8,7 +8,7 @@ end uart_receiver_tb;
 
 architecture TestBench of uart_receiver_tb is
 	constant ClockSpeedHz : Integer := 100e6;
-	constant BaudRateHz : Integer := 100e6;
+	constant BaudRateHz : Integer := 9600;
 	constant DataWidth  : Integer := 8;
 	constant ClockPeriod : time := 1sec / ClockSpeedHz;
 	constant BaudPeriod : time := 1sec / BaudRateHz;
@@ -39,11 +39,12 @@ begin
 			wait for BaudPeriod;
 			for i in 0 to DataWidth-1 loop
 				tx <= test_data(i);
-				wait for BaudPeriod;
+                wait for BaudPeriod;
 			end loop;
-			-- parity bit
-			tx <= '1';
-			wait for BaudPeriod;
+            -- parity bit
+            tx <= '1';
+            wait for BaudPeriod;
+            tx <= '1';
 			assert ready = '1' report "Ready signal not set after byte" severity error;
 			assert data = test_data report "Incorrect data" severity error;
 			assert uart_err = '0' report "Unexpected error signal" severity error;
