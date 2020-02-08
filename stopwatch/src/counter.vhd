@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.all;
 use work.utils.all;
 
+-- Count up and down using the edge-detected signals 'i_incr' and 'i_decr'
 entity counter is
 	Generic (
 		MaxValue: Integer := 9999);
@@ -16,7 +17,6 @@ entity counter is
 
 end counter;
 
--- TODO: Handle both buttons at once, split out edge detector
 architecture Behavioral of counter is
 	type CounterState is (Increment, Decrement, Waiting);
 	signal state : CounterState := Waiting;

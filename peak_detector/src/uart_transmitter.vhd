@@ -30,7 +30,7 @@ architecture Behavioral of uart_transmitter is
 	signal bitIndex 	: Integer range 0 to DataWidth+2 := 0;
 	signal ready_signal : std_logic := '0';
 	-- Leave room head trailing bit
-	signal data         : std_logic_vector(DataWidth+1 downto 0);
+	signal data			: std_logic_vector(DataWidth+1 downto 0);
 	signal parity       : std_logic := '0';
 
 	signal tx 			: std_logic := '1';
@@ -55,18 +55,18 @@ process (i_clk) is begin
 				bitIndex <= bitIndex+1;
 				tx <= data(bitIndex);
 			when Send =>
-                if clock_count = ClocksPerBit then
-                    clock_count <= (others => '0');
-                    if bitIndex = DataWidth+2 then
-                        state <= Ready;
-                    else
-                        state <= Load;
-                    end if;
-                else
-                    clock_count <= clock_count+1;
-                end if;
+				if clock_count = ClocksPerBit then
+					clock_count <= (others => '0');
+					if bitIndex = DataWidth+2 then
+						state <= Ready;
+					else
+						state <= Load;
+					end if;
+				else
+					clock_count <= clock_count+1;
+				end if;
 		end case;
-    end if;
+	end if;
 end process;
 
 end Behavioral;

@@ -13,7 +13,7 @@ Practice projects for the Basys3 Artix-7 board
  - [X] Display integers on 7-Segment display
  - [X] Add LED flashing sequence
  - [X] Add reset signal
- - [ ] Tidy
+ - [X] Tidy
 
 ## UART Peak Detector
 1. Send data over UART from host -> FPGA
@@ -22,6 +22,5 @@ Practice projects for the Basys3 Artix-7 board
 
 ### TODO
 - [X] Add UART Receiver
-- [] Add UART Transmitter
-- [] Add peak detection logic
-- [] Add state machine for managing sequence
+- [X] Add UART Transmitter
+- [X] Add peak detection logic

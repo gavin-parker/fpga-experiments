@@ -22,8 +22,8 @@ end uart_receiver;
 
 architecture Behavioral of uart_receiver is
 	-- Baud Rate
-	constant ClocksPerBit : Integer := ClockSpeedHz / BaudRateHz;
-	signal clock_count : unsigned(clog2(ClocksPerBit)-1 downto 0) := (others => '0');
+	constant ClocksPerBit 	: Integer := ClockSpeedHz / BaudRateHz;
+	signal clock_count 		: unsigned(clog2(ClocksPerBit)-1 downto 0) := (others => '0');
 
 	type StateType is (Ready, Start, Receive, Waiting, Check);
 
@@ -66,7 +66,7 @@ process (i_clk) is begin
 					end if;
 			when Receive =>
 				data(bitIndex) <= i_rx;
-				bitIndex <= bitIndex+1;				
+				bitIndex <= bitIndex+1;
 				if bitIndex = DataWidth then
 					state <= Check;
 				else
@@ -85,7 +85,7 @@ process (i_clk) is begin
 					state <= Ready;
 				end if;
 		end case;
-    end if;
+	end if;
 end process;
 
 end Behavioral;
