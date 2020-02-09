@@ -1,14 +1,12 @@
 set script_path [ file dirname [ file normalize [ info script ] ] ]
-puts $script_path
 cd $script_path
 
-set outputDir ./build
+set project_name $argv 0
+
+set outputDir $project_name/build
 file mkdir $outputDir
 
-read_vhdl [ glob ./src/*.vhd ]
-read_vhdl [ glob ../libs/io/*.vhd ]
-read_vhdl [ glob ../libs/utils/*.vhd ]
-read_xdc ./constraints/Basys3_Master.xdc
+source $project_name/add_files.tcl
 
 synth_design -top stopwatch -part xc7a35tcpg236-1
 write_checkpoint -force $outputDir/post_synth.dcp

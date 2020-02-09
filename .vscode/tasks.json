@@ -1,0 +1,39 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "create bitstream",
+            "type": "shell",
+            "command": "${env:VIVADO_PATH}",
+            "args": ["-mode", "batch", "-source", "{${workspaceFolder}/make.tcl}", "-tclargs", "${input:project}"]
+        },
+        {
+            "label": "lint",
+            "type": "shell",
+            "command": "${env:VIVADO_PATH}",
+            "args": ["-mode", "batch", "-source", "{${workspaceFolder}/lint.tcl}", "-tclargs", "${input:project}"],
+            "problemMatcher": {
+                "owner": "vhd",
+                "fileLocation": "absolute",
+                "pattern": {
+                  "regexp": "(.*): ([^[]*\\[.*?\\])([^[]*)[^[]*\\[(.*):(\\d+)\\]",
+                  "severity": 1,
+                  "message": 3,
+                  "file": 4,
+                  "line": 5
+                }
+              }
+        }
+    ],
+    "inputs": [
+        {
+          "id": "project",
+          "type": "pickString",
+          "description": "project folder to use",
+          "options": ["stopwatch", "peak_detector"]
+          // type specific configuration attributes
+        }
+      ]
+}
